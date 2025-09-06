@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Luhame">
+      <UniqueIdentifier>{01FAA6C1-ED9B-D197-D656-E5EBC29758E8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Luhame\Core">
+      <UniqueIdentifier>{F986E1E8-653C-5ADE-EE30-54B55AE550E2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Luhame\Core\Event">
+      <UniqueIdentifier>{0A9F989B-76B5-9631-BF2C-22532B8267B9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Luhame\Platform">
+      <UniqueIdentifier>{7507D9ED-E192-46B2-EAA3-C9A656AEA2B2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\Luhame.h" />
+    <ClInclude Include="..\src\Luhame\Core\Application.h">
+      <Filter>Luhame\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Luhame\Core\Core.h">
+      <Filter>Luhame\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Luhame\Core\Event\ApplicationEvent.h">
+      <Filter>Luhame\Core\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Luhame\Core\Event\Event.h">
+      <Filter>Luhame\Core\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Luhame\Core\Event\KeyEvent.h">
+      <Filter>Luhame\Core\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Luhame\Core\Event\MouseEvent.h">
+      <Filter>Luhame\Core\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Luhame\Core\Log.h">
+      <Filter>Luhame\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Luhame\Core\Platform.h">
+      <Filter>Luhame\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Luhame\Core\window.h">
+      <Filter>Luhame\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Luhame\EntryPoint.h">
+      <Filter>Luhame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Luhame\Platform\WindowsWindow.h">
+      <Filter>Luhame\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\pch.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\Luhame\Core\Application.cpp">
+      <Filter>Luhame\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Luhame\Core\Core.cpp">
+      <Filter>Luhame\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Luhame\Core\Log.cpp">
+      <Filter>Luhame\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Luhame\Core\window.cpp">
+      <Filter>Luhame\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Luhame\Platform\WindowsWindow.cpp">
+      <Filter>Luhame\Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\pch.cpp" />
+  </ItemGroup>
+</Project>
