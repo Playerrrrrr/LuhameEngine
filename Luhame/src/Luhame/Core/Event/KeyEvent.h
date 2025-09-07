@@ -16,7 +16,17 @@ namespace Luhame {
 	public:
 		key_pressed_event(int key_code,int repeat_count)
 		:key_event(key_code), m_repeat_count(repeat_count){}
+
 		EVENT_CLASS_TYPE(KeyPressed)
+
+			inline int get_repeat_count() { return m_repeat_count; }
+
+		std::string to_string()const override {
+			std::stringstream ss;
+			ss << "key pressed event: " << m_key_code << " (" << m_repeat_count << " repeats)";
+			return ss.str();
+		}
+
 	private:
 		int m_repeat_count;
 	};
@@ -26,6 +36,13 @@ namespace Luhame {
 		key_released_event(int key_code)
 			:key_event(key_code){ }
 		EVENT_CLASS_TYPE(KeyReleased)
+
+		std::string to_string() const override
+		{
+			std::stringstream ss;
+			ss << "key released event: " << m_key_code;
+			return ss.str();
+		}
 	};
 
 }

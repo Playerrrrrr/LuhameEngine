@@ -50,6 +50,8 @@
       <Filter>Luhame\Platform</Filter>
     </ClInclude>
     <ClInclude Include="src\pch.h" />
+    <ClInclude Include="src\Luhame\Core\LayerStack.h" />
+    <ClInclude Include="src\Luhame\Core\Layer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Luhame\Core\Application.cpp">
@@ -68,5 +70,7 @@
       <Filter>Luhame\Platform</Filter>
     </ClCompile>
     <ClCompile Include="src\pch.cpp" />
+    <ClCompile Include="src\Luhame\Core\LayerStack.cpp" />
+    <ClCompile Include="src\Luhame\Core\Layer.cpp" />
   </ItemGroup>
 </Project>

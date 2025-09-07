@@ -5,10 +5,10 @@
 namespace Luhame {
 	enum class event_type {
 		None = 0,
-		WindowClosed, WindowResize, WindowFocus, WindowLostFocus, WindowMoved,
+		WindowClose, WindowResize, WindowFocus, WindowLostFocus, WindowMoved,
 		AppTick, AppUpdate, AppRender,
 		KeyPressed, KeyReleased,
-		MouseButtonPressed, MouseButtonReleased, MouseMoved
+		MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled
 	};
 
 	enum event_category
@@ -41,6 +41,7 @@ namespace Luhame {
 		inline bool is_in_category(event_category category) {
 			return get_category_flags() & category;
 		}
+		virtual std::string to_string()const { return get_name(); }
 	protected:
 		bool m_handled = false;
 	};
@@ -53,7 +54,7 @@ namespace Luhame {
 
 		template<class T>
 		bool dispatch(EventFn<T> func) {
-			if (m_event.get_event_type() == T::get_event_type()) {
+			if (m_event.get_event_type() == T::get_static_type()) {
 				m_event.m_handled = func(*static_cast<T*>(&m_event));
 				return true;
 			}
@@ -63,7 +64,9 @@ namespace Luhame {
 	private:
 		event& m_event;
 	};
-
+	inline static std::ostream& operator<<(std::ostream& os, const event& e) {
+		return os << e.to_string();
+	}
 }
 
 
