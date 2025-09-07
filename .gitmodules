@@ -1,3 +1,6 @@
 [submodule "Luhame/vendor/imgui"]
 	path = Luhame/vendor/imgui
 	url = https://github.com/ocornut/imgui.git
+[submodule "Luhame/vendor/glad"]
+	path = Luhame/vendor/glad
+	url = https://github.com/premake-libs/glad.git
