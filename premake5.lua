@@ -1,6 +1,7 @@
 workspace "Luhame"
     architecture "x64"
     targetdir "build"
+    startproject "Sandbox"
 
     configurations {
         "Debug",
@@ -13,8 +14,12 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 -- Include directories relative to root folder (solution directory)
 IncludeDir = {}
 IncludeDir["GLFW"] = "Luhame/vendor/GLFW/include"
+IncludeDir["Glad"] = "luhame/vendor/glad/include"
+IncludeDir["ImGui"] = "luhame/vendor/imgui"
 
 include "Luhame/vendor/GLFW"--把该目录下的premake5.lua加载过来
+include "Luhame/vendor/imgui"
+include "Luhame/vendor/glad"
 
 project "Luhame"
     location "Luhame"
@@ -39,12 +44,17 @@ project "Luhame"
 	{
 		"%{prj.name}/src",
         "%{prj.name}/vendor",
-        "%{IncludeDir.GLFW}"
+        "%{IncludeDir.GLFW}",
+        "%{IncludeDir.ImGui}",
+        "%{IncludeDir.Glad}"
     }
-    
+
     links 
 	{ 
-		"GLFW"
+		"GLFW",
+        "Glad",
+        "ImGui",
+        "opengl32.lib"
     }
     
 	filter "system:windows"
@@ -92,6 +102,7 @@ project "Sandbox"
 		"Luhame"
     }
     
+
 	files 
 	{ 
 		"%{prj.name}/src/**.h", 

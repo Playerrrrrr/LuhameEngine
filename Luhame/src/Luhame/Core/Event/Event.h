@@ -7,7 +7,7 @@ namespace Luhame {
 		None = 0,
 		WindowClose, WindowResize, WindowFocus, WindowLostFocus, WindowMoved,
 		AppTick, AppUpdate, AppRender,
-		KeyPressed, KeyReleased,
+		KeyPressed, KeyReleased,KeyTyped,
 		MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled
 	};
 
@@ -42,13 +42,17 @@ namespace Luhame {
 			return get_category_flags() & category;
 		}
 		virtual std::string to_string()const { return get_name(); }
+		bool get_handled_state() {
+			return m_handled;
+		}
+		void set_handed_state(bool state) { m_handled = state; }
 	protected:
 		bool m_handled = false;
 	};
 
 	class event_dispatcher {//处理事件的类，但是处理的函数需要给定
 		template<class T>
-		using EventFn = std::function<bool(T)>;
+		using EventFn = std::function<bool(T&)>;
 	public:
 		event_dispatcher(event& e):m_event(e) {}
 

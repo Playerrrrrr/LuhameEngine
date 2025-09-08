@@ -8,7 +8,7 @@ int main(int argc, char** argv)
 {
 	Luhame::Application* app = Luhame::CreateApplication();
 	LH_CORE_ASSERT(app, "Client application is null!");
-	app->Run();
+	app->run();
 	delete app;
 }
 #else

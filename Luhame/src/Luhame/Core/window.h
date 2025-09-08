@@ -26,7 +26,7 @@ namespace Luhame {
 		virtual void set_event_callback(const event_callback_fn& callback) = 0;
 		virtual unsigned int get_width() const = 0;
 		virtual unsigned int get_height() const = 0;
-
+		virtual void* get_native_window() const = 0;
 		static window* create(const window_props& props);
 	protected:
 

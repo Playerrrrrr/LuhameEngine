@@ -100,3 +100,7 @@
 #ifdef LH_PLATFORM_WINDOWS
 	#include<Windows.h>
 #endif
+
+#include"Luhame/Core/Core.h"
+#include"Luhame/Core/Log.h"
+#include"Luhame/Core/Event/Event.h"

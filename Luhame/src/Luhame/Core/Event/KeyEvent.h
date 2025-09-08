@@ -45,4 +45,26 @@ namespace Luhame {
 		}
 	};
 
+	class key_typed_event : public event
+	{
+	public:
+		key_typed_event(unsigned int keycode)
+			: m_keycode(keycode) {
+		}
+
+		unsigned int get_key_code() const { return m_keycode; }
+
+		std::string to_string() const override
+		{
+			std::stringstream ss;
+			ss << "key_typed_event: " << m_keycode;
+			return ss.str();
+		}
+
+		EVENT_CLASS_TYPE(KeyTyped)
+			EVENT_CLASS_CATEGORY(event_category::EventCategoryInput | event_category::EventCategoryKeyboard)
+	private:
+		unsigned int m_keycode;
+	};
+
 }

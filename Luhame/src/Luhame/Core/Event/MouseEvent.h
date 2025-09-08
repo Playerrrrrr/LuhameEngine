@@ -26,7 +26,7 @@ namespace Luhame {
 
 	class LUHAME_API mouse_button_event :public event {
 	public:
-		inline int get_mouse_botton() const { return m_button; }
+		inline int get_mouse_button() const { return m_button; }
 
 		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 	protected:
@@ -36,7 +36,7 @@ namespace Luhame {
 		int m_button;
 	};
 
-	class LUHAME_API mouse_button_pressed_event : mouse_button_event {
+	class LUHAME_API mouse_button_pressed_event :public mouse_button_event {
 	public:
 		mouse_button_pressed_event(int button)
 			:mouse_button_event(button){ }

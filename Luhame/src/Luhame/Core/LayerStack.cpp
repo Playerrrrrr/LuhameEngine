@@ -13,17 +13,17 @@ namespace Luhame {
 			delete layer;
 	}
 
-	void layer_stack::Pushlayer(layer* layer)
+	void layer_stack::push_layer(layer* layer)//pushµΩÕ∑…œ
 	{
 		m_layerInsert = m_layers.emplace(m_layerInsert, layer);
 	}
 
-	void layer_stack::PushOverlay(layer* overlay)
+	void layer_stack::push_over_layer(layer* overlay)
 	{
 		m_layers.emplace_back(overlay);
 	}
 
-	void layer_stack::Poplayer(layer* layer)
+	void layer_stack::pop_layer(layer* layer)
 	{
 		auto it = std::find(m_layers.begin(), m_layers.end(), layer);
 		if (it != m_layers.end())
@@ -34,7 +34,7 @@ namespace Luhame {
 
 	}
 
-	void layer_stack::PopOverlay(layer* overlay)
+	void layer_stack::pop_over_layer(layer* overlay)
 	{
 		auto it = std::find(m_layers.begin(), m_layers.end(), overlay);
 		if (it != m_layers.end())

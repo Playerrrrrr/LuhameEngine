@@ -14,10 +14,10 @@ namespace Luhame {
 		layer_stack();
 		~layer_stack();
 
-		void Pushlayer(layer* layer);
-		void PushOverlay(layer* overlay);
-		void Poplayer(layer* layer);
-		void PopOverlay(layer* overlay);
+		void push_layer(layer* layer);
+		void push_over_layer(layer* overlay);
+		void pop_layer(layer* layer);
+		void pop_over_layer(layer* overlay);
 
 		std::vector<layer*>::iterator begin() { return m_layers.begin(); }
 		std::vector<layer*>::iterator end() { return m_layers.end(); }

@@ -10,8 +10,17 @@
     <Filter Include="Luhame\Core\Event">
       <UniqueIdentifier>{0A9F989B-76B5-9631-BF2C-22532B8267B9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Luhame\Debug">
+      <UniqueIdentifier>{37C11E05-2324-AEA9-CCA9-E65FB8EB792C}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Luhame\Platform">
       <UniqueIdentifier>{7507D9ED-E192-46B2-EAA3-C9A656AEA2B2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Luhame\Platform\OpenGL">
+      <UniqueIdentifier>{091BFE68-F514-27BB-DE81-BDCBCA1A8D27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Luhame\Platform\Windows">
+      <UniqueIdentifier>{AF56DDE0-1B8E-2578-2498-899B904E4C71}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -34,6 +43,12 @@
     <ClInclude Include="src\Luhame\Core\Event\MouseEvent.h">
       <Filter>Luhame\Core\Event</Filter>
     </ClInclude>
+    <ClInclude Include="src\Luhame\Core\Layer.h">
+      <Filter>Luhame\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Luhame\Core\LayerStack.h">
+      <Filter>Luhame\Core</Filter>
+    </ClInclude>
     <ClInclude Include="src\Luhame\Core\Log.h">
       <Filter>Luhame\Core</Filter>
     </ClInclude>
@@ -43,15 +58,18 @@
     <ClInclude Include="src\Luhame\Core\window.h">
       <Filter>Luhame\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\Luhame\ImGui\ImGuiLayer.h">
+      <Filter>Luhame\Debug</Filter>
+    </ClInclude>
     <ClInclude Include="src\Luhame\EntryPoint.h">
       <Filter>Luhame</Filter>
     </ClInclude>
-    <ClInclude Include="src\Luhame\Platform\WindowsWindow.h">
-      <Filter>Luhame\Platform</Filter>
+    <ClInclude Include="src\Luhame\Platform\Windows\WindowsWindow.h">
+      <Filter>Luhame\Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\pch.h" />
-    <ClInclude Include="src\Luhame\Core\LayerStack.h" />
-    <ClInclude Include="src\Luhame\Core\Layer.h" />
+    <ClInclude Include="src\Luhame\Core\Input.h" />
+    <ClInclude Include="src\Luhame\Platform\Windows\WindowsInput.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Luhame\Core\Application.cpp">
@@ -60,17 +78,26 @@
     <ClCompile Include="src\Luhame\Core\Core.cpp">
       <Filter>Luhame\Core</Filter>
     </ClCompile>
+    <ClCompile Include="src\Luhame\Core\Layer.cpp">
+      <Filter>Luhame\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Luhame\Core\LayerStack.cpp">
+      <Filter>Luhame\Core</Filter>
+    </ClCompile>
     <ClCompile Include="src\Luhame\Core\Log.cpp">
       <Filter>Luhame\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Luhame\Core\window.cpp">
       <Filter>Luhame\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Luhame\Platform\WindowsWindow.cpp">
-      <Filter>Luhame\Platform</Filter>
+    <ClCompile Include="src\Luhame\ImGui\ImGuiLayer.cpp">
+      <Filter>Luhame\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Luhame\Platform\Windows\WindowsWindow.cpp">
+      <Filter>Luhame\Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\pch.cpp" />
-    <ClCompile Include="src\Luhame\Core\LayerStack.cpp" />
-    <ClCompile Include="src\Luhame\Core\Layer.cpp" />
+    <ClCompile Include="src\Luhame\Core\Input.cpp" />
+    <ClCompile Include="src\Luhame\Platform\Windows\WindowsInput.cpp" />
   </ItemGroup>
 </Project>

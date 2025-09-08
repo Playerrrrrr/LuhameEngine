@@ -13,7 +13,7 @@ namespace Luhame {
         }
         inline uint32_t get_width() const override { return m_window_data.m_width; }
         inline uint32_t get_height() const override { return m_window_data.m_height; }
-
+        void* get_native_window() const override { return m_window; }
         void on_update() override;
 
     private:
@@ -28,6 +28,8 @@ namespace Luhame {
             uint32_t m_width, m_height;
             bool VSync;
         };
+
+        GLFWcursor* m_imgui_mouse_cursors[9] = { 0 };
 
         GLFWwindow* m_window;
 

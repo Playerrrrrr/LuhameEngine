@@ -8,12 +8,12 @@ namespace Luhame {
 		layer(const std::string& name = "layer");
 		virtual ~layer();
 
-		virtual void OnAttach() {}
-		virtual void OnDetach() {}
-		virtual void OnUpdate() {}
-		virtual void OnEvent(event& event) {}
+		virtual void on_attach() = 0;
+		virtual void on_detach() = 0;
+		virtual void on_update() = 0;
+		virtual void on_event(event& event) = 0;
 
-		inline const std::string& GetName() const { return m_debug_name; }
+		inline const std::string& get_name() const { return m_debug_name; }
 	protected:
 		std::string m_debug_name;
 	};
