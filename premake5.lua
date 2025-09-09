@@ -23,7 +23,7 @@ include "Luhame/vendor/glad"
 
 project "Luhame"
     location "Luhame"
-    kind "SharedLib"
+    kind "StaticLib"
     language "C++"
     
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
@@ -65,7 +65,7 @@ project "Luhame"
 		defines 
 		{ 
             "LH_PLATFORM_WINDOWS",
-            "LH_BUILD_DLL",
+            "LH_BUILD_LIB",
 		}
 			
         postbuildcommands
@@ -99,7 +99,8 @@ project "Sandbox"
 
 	links 
 	{ 
-		"Luhame"
+		"Luhame",
+        "ImGui"
     }
     
 

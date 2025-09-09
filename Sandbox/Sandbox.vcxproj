@@ -141,6 +141,9 @@
     <ProjectReference Include="..\Luhame\Luhame.vcxproj">
       <Project>{01FAA6C1-ED9B-D197-D656-E5EBC29758E8}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\Luhame\vendor\imgui\ImGui.vcxproj">
+      <Project>{C0FF640D-2C14-8DBE-F595-301E616989EF}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

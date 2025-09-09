@@ -26,9 +26,9 @@ namespace Luhame {
 	{
 		glfwPollEvents();
 		glfwSwapBuffers(m_window);
-		//ImGuiMouseCursor imgui_cursor = ImGui::GetMouseCursor();
-		//glfwSetCursor(m_window, m_mouse_cursors[imgui_cursor] ? m_mouse_cursors[imgui_cursor] : m_mouse_cursors[ImGuiMouseCursor_Arrow]);
-		//glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+		ImGuiMouseCursor imgui_cursor = ImGui::GetMouseCursor();
+		glfwSetCursor(m_window, m_imgui_mouse_cursors[imgui_cursor] ? m_imgui_mouse_cursors[imgui_cursor] : m_imgui_mouse_cursors[ImGuiMouseCursor_Arrow]);
+		glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 	}
 	void windows_window::init(const window_props& props)
 	{
@@ -45,6 +45,9 @@ namespace Luhame {
 			is_glfw_init = true;
 		}   
 		glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 		m_window = glfwCreateWindow(
 			static_cast<int>(props.m_width),

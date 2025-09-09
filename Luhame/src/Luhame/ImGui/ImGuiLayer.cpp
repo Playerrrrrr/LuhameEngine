@@ -40,13 +40,6 @@ namespace Luhame {
     void imgui_layer::on_update()
     {
 
-        static char m_input[1000];
-
-        ImGui::Begin("m_view port");
-        ImGui::InputText("input",m_input,100);
-        ImGui::End();
-        static bool show = true;
-        ImGui::ShowDemoWindow(&show);
 
     }
 

@@ -17,7 +17,9 @@ namespace Luhame {
 		virtual void on_detach() override;
 		virtual void on_update() override;
 		virtual void on_event(event& event)override;
-
+		virtual void on_ui_render() override{};
+		void begin() {}
+		void end(){}
 	private:
 		bool on_mouse_button_pressed_event(mouse_button_pressed_event& e);
 		bool on_mouse_button_released_event(mouse_button_released_event& e);

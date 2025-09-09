@@ -10,8 +10,8 @@
     <Filter Include="Luhame\Core\Event">
       <UniqueIdentifier>{0A9F989B-76B5-9631-BF2C-22532B8267B9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Luhame\Debug">
-      <UniqueIdentifier>{37C11E05-2324-AEA9-CCA9-E65FB8EB792C}</UniqueIdentifier>
+    <Filter Include="Luhame\ImGui">
+      <UniqueIdentifier>{EB2B7D05-D78E-0CAA-8014-45606C56D82C}</UniqueIdentifier>
     </Filter>
     <Filter Include="Luhame\Platform">
       <UniqueIdentifier>{7507D9ED-E192-46B2-EAA3-C9A656AEA2B2}</UniqueIdentifier>
@@ -21,6 +21,9 @@
     </Filter>
     <Filter Include="Luhame\Platform\Windows">
       <UniqueIdentifier>{AF56DDE0-1B8E-2578-2498-899B904E4C71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Luhame\Renderer">
+      <UniqueIdentifier>{C70EB6C8-339A-238D-3CAB-A681A8B57F8D}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -43,6 +46,9 @@
     <ClInclude Include="src\Luhame\Core\Event\MouseEvent.h">
       <Filter>Luhame\Core\Event</Filter>
     </ClInclude>
+    <ClInclude Include="src\Luhame\Core\Input.h">
+      <Filter>Luhame\Core</Filter>
+    </ClInclude>
     <ClInclude Include="src\Luhame\Core\Layer.h">
       <Filter>Luhame\Core</Filter>
     </ClInclude>
@@ -58,24 +64,70 @@
     <ClInclude Include="src\Luhame\Core\window.h">
       <Filter>Luhame\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Luhame\ImGui\ImGuiLayer.h">
-      <Filter>Luhame\Debug</Filter>
-    </ClInclude>
     <ClInclude Include="src\Luhame\EntryPoint.h">
       <Filter>Luhame</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Luhame\ImGui\ImGuiLayer.h">
+      <Filter>Luhame\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Luhame\Platform\OpenGL\OpenGLFramebuffer.h">
+      <Filter>Luhame\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Luhame\Platform\OpenGL\OpenGLIndexBuffer.h">
+      <Filter>Luhame\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Luhame\Platform\OpenGL\OpenGLShader.h">
+      <Filter>Luhame\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Luhame\Platform\OpenGL\OpenGLTexture.h">
+      <Filter>Luhame\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Luhame\Platform\OpenGL\OpenGLVertexBuffer.h">
+      <Filter>Luhame\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Luhame\Platform\Windows\WindowsInput.h">
+      <Filter>Luhame\Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\Luhame\Platform\Windows\WindowsWindow.h">
       <Filter>Luhame\Platform\Windows</Filter>
     </ClInclude>
+    <ClInclude Include="src\Luhame\Renderer\Framebuffer.h">
+      <Filter>Luhame\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Luhame\Renderer\IndexBuffer.h">
+      <Filter>Luhame\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Luhame\Renderer\RenderCommand.h">
+      <Filter>Luhame\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Luhame\Renderer\RenderCommandQueue.h">
+      <Filter>Luhame\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Luhame\Renderer\Renderer.h">
+      <Filter>Luhame\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Luhame\Renderer\RendererAPI.h">
+      <Filter>Luhame\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Luhame\Renderer\Shader.h">
+      <Filter>Luhame\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Luhame\Renderer\Texture.h">
+      <Filter>Luhame\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Luhame\Renderer\VertexBuffer.h">
+      <Filter>Luhame\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\pch.h" />
-    <ClInclude Include="src\Luhame\Core\Input.h" />
-    <ClInclude Include="src\Luhame\Platform\Windows\WindowsInput.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Luhame\Core\Application.cpp">
       <Filter>Luhame\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Luhame\Core\Core.cpp">
+      <Filter>Luhame\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Luhame\Core\Input.cpp">
       <Filter>Luhame\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Luhame\Core\Layer.cpp">
@@ -91,13 +143,51 @@
       <Filter>Luhame\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Luhame\ImGui\ImGuiLayer.cpp">
-      <Filter>Luhame\Debug</Filter>
+      <Filter>Luhame\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Luhame\Platform\OpenGL\OpenGLFramebuffer.cpp">
+      <Filter>Luhame\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Luhame\Platform\OpenGL\OpenGLIndexBuffer.cpp">
+      <Filter>Luhame\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Luhame\Platform\OpenGL\OpenGLRendererAPI.cpp">
+      <Filter>Luhame\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Luhame\Platform\OpenGL\OpenGLShader.cpp">
+      <Filter>Luhame\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Luhame\Platform\OpenGL\OpenGLTexture.cpp">
+      <Filter>Luhame\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Luhame\Platform\OpenGL\OpenGLVertexBuffer.cpp">
+      <Filter>Luhame\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Luhame\Platform\Windows\WindowsInput.cpp">
+      <Filter>Luhame\Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\Luhame\Platform\Windows\WindowsWindow.cpp">
       <Filter>Luhame\Platform\Windows</Filter>
     </ClCompile>
+    <ClCompile Include="src\Luhame\Renderer\IndexBuffer.cpp">
+      <Filter>Luhame\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Luhame\Renderer\RenderCommand.cpp">
+      <Filter>Luhame\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Luhame\Renderer\RenderCommandQueue.cpp">
+      <Filter>Luhame\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Luhame\Renderer\Renderer.cpp">
+      <Filter>Luhame\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Luhame\Renderer\Texture.cpp">
+      <Filter>Luhame\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Luhame\Renderer\VertexBuffer.cpp">
+      <Filter>Luhame\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\pch.cpp" />
-    <ClCompile Include="src\Luhame\Core\Input.cpp" />
-    <ClCompile Include="src\Luhame\Platform\Windows\WindowsInput.cpp" />
+    <ClCompile Include="src\Luhame\Renderer\Shader.cpp" />
   </ItemGroup>
 </Project>

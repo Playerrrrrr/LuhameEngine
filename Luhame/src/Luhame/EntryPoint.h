@@ -6,6 +6,7 @@ extern Luhame::Application* Luhame::CreateApplication();
 
 int main(int argc, char** argv)
 {
+	::Luhame::Log::Init();
 	Luhame::Application* app = Luhame::CreateApplication();
 	LH_CORE_ASSERT(app, "Client application is null!");
 	app->run();

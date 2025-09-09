@@ -12,6 +12,7 @@ namespace Luhame {
 		virtual void on_detach() = 0;
 		virtual void on_update() = 0;
 		virtual void on_event(event& event) = 0;
+		virtual void on_ui_render() = 0;
 
 		inline const std::string& get_name() const { return m_debug_name; }
 	protected:

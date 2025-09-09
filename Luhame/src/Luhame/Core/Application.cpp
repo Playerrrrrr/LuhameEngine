@@ -3,10 +3,11 @@
 #include"Luhame/Core/Event/KeyEvent.h"
 #include"Luhame/Core/Event/MouseEvent.h"
 #include"Luhame/Core/Log.h"
-#include"GLFW/glfw3.h"
-#include"Luhame/Platform/OpenGL/ImGuiOpenGLRenderer.h"
-#include"imgui/backends/imgui_impl_glfw.h"
+#include"Luhame/Renderer/Renderer.h"
+#include"ImGui/backends/imgui_impl_opengl3.h"
 
+#include"GLFW/glfw3.h"
+#include"imgui/backends/imgui_impl_glfw.h"
 namespace Luhame {
 
 
@@ -21,6 +22,8 @@ namespace Luhame {
 		m_window->set_event_callback(
 			std::bind(&Application::on_event, this, std::placeholders::_1)
 		);
+
+		::Luhame::renderer::init();//依赖window::create时导入opengl函数
 	}
 
 	Application::~Application()
@@ -29,24 +32,32 @@ namespace Luhame {
 	}
 	void Application::on_init() {
 		IMGUI_CHECKVERSION();
-
-		ImGui::CreateContext();
-		//处理后端数据，比如键盘和鼠标的输入
+		LH_CORE_ASSERT(ImGui::CreateContext(),"nullptr");
 		ImGuiIO& io = ImGui::GetIO(); (void)io;
 		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
 		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
-		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;			//离屏？
-		ImGui::StyleColorsDark();
-		ImGuiStyle& style = ImGui::GetStyle();
+		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
+		//io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoTaskBarIcons;
+		//io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoMerge;
 
+		// Setup Dear ImGui style
+		ImGui::StyleColorsDark();
+		//ImGui::StyleColorsClassic();
+
+		// When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
+		ImGuiStyle& style = ImGui::GetStyle();
 		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
 		{
 			style.WindowRounding = 0.0f;
 			style.Colors[ImGuiCol_WindowBg].w = 1.0f;
 		}
 
-		ImGui_ImplGlfw_InitForOpenGL(static_cast<GLFWwindow*>(m_window->get_native_window()), true);
+		Application* app = Application::get();
+		GLFWwindow* window = static_cast<GLFWwindow*>(app->get_window().get_native_window());
+
+		// Setup Platform/Renderer bindings
+		ImGui_ImplGlfw_InitForOpenGL(window, true);
 		ImGui_ImplOpenGL3_Init("#version 410");
 	}
 	void Application::on_shut_down()
@@ -60,37 +71,27 @@ namespace Luhame {
 
 		on_init();
 
-		ImGuiIO& io = ImGui::GetIO();
 
 
 		while (m_runing) {
+			on_begin_frame();
 
-			float time = (float)glfwGetTime();
-			io.DeltaTime = m_time > 0.0 ? (time - m_time) : (1.0f / 60.0f);
-			m_time = time;
 
-			glClearColor(0, 0, 0, 1);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-			ImGui_ImplOpenGL3_NewFrame();
-			ImGui_ImplGlfw_NewFrame();
-			ImGui::NewFrame();
 			for (layer* t_layer : m_layer_stack) {
-				t_layer->on_update();
+				t_layer->on_update();//提交渲染数据
 			}
-			Application& app = *Application::get();
-			io.DisplaySize = ImVec2(app.get_window().get_width(), app.get_window().get_height());
 
-			ImGui::Render();
-			ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-			if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-			{
-				GLFWwindow* backup_current_context = glfwGetCurrentContext();
-				ImGui::UpdatePlatformWindows();
-				ImGui::RenderPlatformWindowsDefault();
-				glfwMakeContextCurrent(backup_current_context);
+			for (auto& t : m_layer_stack) {
+				t->on_ui_render();
 			}
+			LH_CORE_INFO("Begin Render");
+			renderer::get().wait_and_render();//渲染
+			LH_CORE_INFO("End Render");
+
+			on_end_frame();
+
 			m_window->on_update();
+
 		}
 		on_shut_down();
 	}
@@ -124,6 +125,61 @@ namespace Luhame {
 	{
 		m_layer_stack.push_over_layer(t_layer);
 		t_layer->on_attach();
+	}
+
+	void Application::on_begin_frame()
+	{
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
+
+
+		//{//将主窗口作为docking space
+		//	ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
+		//	window_flags |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse;
+		//	window_flags |= ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
+		//	window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
+
+		//	// 获取视口并设置窗口位置和大小
+		//	ImGuiViewport* viewport = ImGui::GetMainViewport();
+		//	ImGui::SetNextWindowPos(viewport->Pos);
+		//	ImGui::SetNextWindowSize(viewport->Size);
+		//	ImGui::SetNextWindowViewport(viewport->ID);
+
+		//	// 推送样式变量
+		//	ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
+		//	ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
+		//	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+
+		//	// 创建主docking窗口
+		//	bool open = true;
+		//	ImGui::Begin("DockingSpace", &open, window_flags);
+		//	ImGui::PopStyleVar(3);
+
+		//	// 创建docking空间
+		//	ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
+		//	ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), ImGuiDockNodeFlags_None);
+
+		//	ImGui::End();
+		//}
+	}
+
+	void Application::on_end_frame()
+	{
+		ImGuiIO& io = ImGui::GetIO();
+
+		Application& app = *Application::get();
+		io.DisplaySize = ImVec2(app.get_window().get_width(), app.get_window().get_height());
+
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+		{
+			GLFWwindow* backup_current_context = glfwGetCurrentContext();
+			ImGui::UpdatePlatformWindows();
+			ImGui::RenderPlatformWindowsDefault();
+			glfwMakeContextCurrent(backup_current_context);
+		}
 	}
 
 	bool Application::on_window_resize(window_resize_event& event)

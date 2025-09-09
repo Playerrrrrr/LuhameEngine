@@ -7,9 +7,9 @@ namespace Luhame {
 }
 
 //#ifdef LUHAME_BUILD_DLL
-//	#define Luhame_API __declspec(dllexport)
+//	#define LUHAME_API __declspec(dllexport)
 //#else
-//	#define Luhame_API __declspec(dllimport)
+//	#define LUHAME_API __declspec(dllimport)
 //#endif
 
 
@@ -21,7 +21,8 @@ namespace Luhame {
 	#ifdef LH_BUILD_DLL
 		#define LUHAME_API __declspec(dllexport)
 	#else
-		#define LUHAME_API __declspec(dllimport)
+		//#define LUHAME_API __declspec(dllimport)
+		#define LUHAME_API 
 	#endif
 #else
 	#error Luhame only support windows

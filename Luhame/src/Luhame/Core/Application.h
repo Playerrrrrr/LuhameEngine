@@ -16,12 +16,14 @@ namespace Luhame {
 
 		virtual void on_init();
 		virtual void on_shut_down();
-		virtual void on_update() {}
-
+		virtual void on_update() {};
 		virtual void on_event(event& event);
 
 		void push_layer(layer* t_layer);
 		void push_over_layer(layer* t_layer);
+
+		void on_begin_frame();
+		void on_end_frame();
 
 		window& get_window() { return *m_window.get(); }
 		static Application* get() { return s_instance; }
@@ -36,7 +38,6 @@ namespace Luhame {
 		inline static bool is_init = false;
 		inline static Application* s_instance;
 
-		float m_time;
 	};
 
 	// Implemented by CLIENT
