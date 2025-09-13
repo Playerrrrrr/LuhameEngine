@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImGui", "Luhame\vendor\imgu
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Luhame", "Luhame\Luhame.vcxproj", "{01FAA6C1-ED9B-D197-D656-E5EBC29758E8}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StbImage", "Luhame\vendor\stb\StbImage.vcxproj", "{71D06EE0-5D9D-C9EB-86B6-B79372E2FE79}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -48,6 +50,12 @@ Global
 		{01FAA6C1-ED9B-D197-D656-E5EBC29758E8}.Dist|x64.Build.0 = Dist|x64
 		{01FAA6C1-ED9B-D197-D656-E5EBC29758E8}.Release|x64.ActiveCfg = Release|x64
 		{01FAA6C1-ED9B-D197-D656-E5EBC29758E8}.Release|x64.Build.0 = Release|x64
+		{71D06EE0-5D9D-C9EB-86B6-B79372E2FE79}.Debug|x64.ActiveCfg = Debug|x64
+		{71D06EE0-5D9D-C9EB-86B6-B79372E2FE79}.Debug|x64.Build.0 = Debug|x64
+		{71D06EE0-5D9D-C9EB-86B6-B79372E2FE79}.Dist|x64.ActiveCfg = Dist|x64
+		{71D06EE0-5D9D-C9EB-86B6-B79372E2FE79}.Dist|x64.Build.0 = Dist|x64
+		{71D06EE0-5D9D-C9EB-86B6-B79372E2FE79}.Release|x64.ActiveCfg = Release|x64
+		{71D06EE0-5D9D-C9EB-86B6-B79372E2FE79}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

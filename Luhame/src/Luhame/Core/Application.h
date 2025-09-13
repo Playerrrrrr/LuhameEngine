@@ -25,8 +25,13 @@ namespace Luhame {
 		void on_begin_frame();
 		void on_end_frame();
 
+		std::string open_file(const std::string& filter) const;
+
 		window& get_window() { return *m_window.get(); }
 		static Application* get() { return s_instance; }
+
+
+
 	private:
 
 		bool on_window_resize(window_resize_event& event);

@@ -19,7 +19,6 @@
     <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Luhame</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
@@ -76,11 +75,12 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>LH_PLATFORM_WINDOWS;LH_BUILD_LIB;LH_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor;vendor\GLFW\include;vendor\imgui;vendor\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>SPDLOG_ACTIVE_LEVEL=SPDLOG_LEVEL_TRACE;LH_PLATFORM_WINDOWS;LH_BUILD_LIB;LH_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>src;vendor;vendor\GLFW\include;vendor\imgui;vendor\glad\include;vendor\glm;vendor\stb;vendor\spdlog\include;vendor\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AdditionalOptions>/execution-charset:utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -89,26 +89,23 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;vendor\assimp\win64\assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
-    <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Debug-windows-x86_64\Luhame\Luhame.lib\ (xcopy /Q /E /Y /I ..\bin\Debug-windows-x86_64\Luhame\Luhame.lib ..\bin\Debug-windows-x86_64\Sandbox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows-x86_64\Luhame\Luhame.lib ..\bin\Debug-windows-x86_64\Sandbox &gt; nul)</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>LH_PLATFORM_WINDOWS;LH_BUILD_LIB;LH_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor;vendor\GLFW\include;vendor\imgui;vendor\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>SPDLOG_ACTIVE_LEVEL=SPDLOG_LEVEL_TRACE;LH_PLATFORM_WINDOWS;LH_BUILD_LIB;LH_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>src;vendor;vendor\GLFW\include;vendor\imgui;vendor\glad\include;vendor\glm;vendor\stb;vendor\spdlog\include;vendor\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalOptions>/MT %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/MT /execution-charset:utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -118,19 +115,16 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;vendor\assimp\win64\assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
-    <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Release-windows-x86_64\Luhame\Luhame.lib\ (xcopy /Q /E /Y /I ..\bin\Release-windows-x86_64\Luhame\Luhame.lib ..\bin\Release-windows-x86_64\Sandbox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows-x86_64\Luhame\Luhame.lib ..\bin\Release-windows-x86_64\Sandbox &gt; nul)</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>LH_PLATFORM_WINDOWS;LH_BUILD_LIB;LH_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor;vendor\GLFW\include;vendor\imgui;vendor\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>SPDLOG_ACTIVE_LEVEL=SPDLOG_LEVEL_TRACE;LH_PLATFORM_WINDOWS;LH_BUILD_LIB;LH_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>src;vendor;vendor\GLFW\include;vendor\imgui;vendor\glad\include;vendor\glm;vendor\stb;vendor\spdlog\include;vendor\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -146,11 +140,8 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;vendor\assimp\win64\assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
-    <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Dist-windows-x86_64\Luhame\Luhame.lib\ (xcopy /Q /E /Y /I ..\bin\Dist-windows-x86_64\Luhame\Luhame.lib ..\bin\Dist-windows-x86_64\Sandbox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Dist-windows-x86_64\Luhame\Luhame.lib ..\bin\Dist-windows-x86_64\Sandbox &gt; nul)</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\Luhame.h" />
@@ -161,6 +152,7 @@
     <ClInclude Include="src\Luhame\Core\Event\KeyEvent.h" />
     <ClInclude Include="src\Luhame\Core\Event\MouseEvent.h" />
     <ClInclude Include="src\Luhame\Core\Input.h" />
+    <ClInclude Include="src\Luhame\Core\KeyKode.h" />
     <ClInclude Include="src\Luhame\Core\Layer.h" />
     <ClInclude Include="src\Luhame\Core\LayerStack.h" />
     <ClInclude Include="src\Luhame\Core\Log.h" />
@@ -168,23 +160,24 @@
     <ClInclude Include="src\Luhame\Core\window.h" />
     <ClInclude Include="src\Luhame\EntryPoint.h" />
     <ClInclude Include="src\Luhame\ImGui\ImGuiLayer.h" />
+    <ClInclude Include="src\Luhame\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Luhame\Platform\OpenGL\OpenGLFramebuffer.h" />
-    <ClInclude Include="src\Luhame\Platform\OpenGL\OpenGLIndexBuffer.h" />
     <ClInclude Include="src\Luhame\Platform\OpenGL\OpenGLShader.h" />
     <ClInclude Include="src\Luhame\Platform\OpenGL\OpenGLTexture.h" />
-    <ClInclude Include="src\Luhame\Platform\OpenGL\OpenGLVertexBuffer.h" />
     <ClInclude Include="src\Luhame\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Luhame\Platform\Windows\WindowsWindow.h" />
+    <ClInclude Include="src\Luhame\Renderer\Buffer.h" />
+    <ClInclude Include="src\Luhame\Renderer\Camera.h" />
     <ClInclude Include="src\Luhame\Renderer\Framebuffer.h" />
-    <ClInclude Include="src\Luhame\Renderer\IndexBuffer.h" />
+    <ClInclude Include="src\Luhame\Renderer\Mesh.h" />
     <ClInclude Include="src\Luhame\Renderer\RenderCommand.h" />
     <ClInclude Include="src\Luhame\Renderer\RenderCommandQueue.h" />
     <ClInclude Include="src\Luhame\Renderer\Renderer.h" />
     <ClInclude Include="src\Luhame\Renderer\RendererAPI.h" />
     <ClInclude Include="src\Luhame\Renderer\Shader.h" />
     <ClInclude Include="src\Luhame\Renderer\Texture.h" />
-    <ClInclude Include="src\Luhame\Renderer\VertexBuffer.h" />
     <ClInclude Include="src\pch.h" />
+    <ClInclude Include="src\Luhame\Core\TimeStep.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Luhame\Core\Application.cpp" />
@@ -195,24 +188,26 @@
     <ClCompile Include="src\Luhame\Core\Log.cpp" />
     <ClCompile Include="src\Luhame\Core\window.cpp" />
     <ClCompile Include="src\Luhame\ImGui\ImGuiLayer.cpp" />
+    <ClCompile Include="src\Luhame\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Luhame\Platform\OpenGL\OpenGLFramebuffer.cpp" />
-    <ClCompile Include="src\Luhame\Platform\OpenGL\OpenGLIndexBuffer.cpp" />
     <ClCompile Include="src\Luhame\Platform\OpenGL\OpenGLRendererAPI.cpp" />
     <ClCompile Include="src\Luhame\Platform\OpenGL\OpenGLShader.cpp" />
     <ClCompile Include="src\Luhame\Platform\OpenGL\OpenGLTexture.cpp" />
-    <ClCompile Include="src\Luhame\Platform\OpenGL\OpenGLVertexBuffer.cpp" />
     <ClCompile Include="src\Luhame\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Luhame\Platform\Windows\WindowsWindow.cpp" />
-    <ClCompile Include="src\Luhame\Renderer\IndexBuffer.cpp" />
+    <ClCompile Include="src\Luhame\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\Luhame\Renderer\Camera.cpp" />
+    <ClCompile Include="src\Luhame\Renderer\FrameBuffer.cpp" />
+    <ClCompile Include="src\Luhame\Renderer\Mesh.cpp" />
     <ClCompile Include="src\Luhame\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\Luhame\Renderer\RenderCommandQueue.cpp" />
     <ClCompile Include="src\Luhame\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Luhame\Renderer\Shader.cpp" />
     <ClCompile Include="src\Luhame\Renderer\Texture.cpp" />
-    <ClCompile Include="src\Luhame\Renderer\VertexBuffer.cpp" />
     <ClCompile Include="src\pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\Luhame\Core\TimeStep.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="vendor\GLFW\GLFW.vcxproj">
@@ -223,6 +218,9 @@
     </ProjectReference>
     <ProjectReference Include="vendor\imgui\ImGui.vcxproj">
       <Project>{C0FF640D-2C14-8DBE-F595-301E616989EF}</Project>
+    </ProjectReference>
+    <ProjectReference Include="vendor\stb\StbImage.vcxproj">
+      <Project>{71D06EE0-5D9D-C9EB-86B6-B79372E2FE79}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

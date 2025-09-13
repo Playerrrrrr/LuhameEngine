@@ -8,7 +8,7 @@
 namespace Luhame {
 	render_command_queue::render_command_queue()
 	{
-		m_command_buffer = new unsigned char[10 * 1024 * 1024]; // 10mb buffer
+		m_command_buffer = new unsigned char[100 * 1024 * 1024]; // 10mb buffer
 		m_command_buffer_ptr = m_command_buffer;
 		memset(m_command_buffer, 0, 10 * 1024 * 1024);
 	}
@@ -33,7 +33,7 @@ namespace Luhame {
 
 	void render_command_queue::execute()
 	{
-		LH_RENDER_TRACE("render_command_queue::execute -- {0} commands, {1} bytes", m_render_command_count, (m_command_buffer_ptr - m_command_buffer));
+		LH_CORE_INFO("render_command_queue::execute -- {0} commands, {1} bytes", m_render_command_count, m_command_buffer_ptr - m_command_buffer);
 
 		byte* buffer = m_command_buffer;
 

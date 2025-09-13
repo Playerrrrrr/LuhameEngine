@@ -18,14 +18,17 @@ namespace Luhame {
 #endif 
 
 #ifdef LH_PLATFORM_WINDOWS
+#if HZ_DYNAMIC_LINK
 	#ifdef LH_BUILD_DLL
 		#define LUHAME_API __declspec(dllexport)
 	#else
-		//#define LUHAME_API __declspec(dllimport)
-		#define LUHAME_API 
+		#define LUHAME_API __declspec(dllimport)
 	#endif
+#else		
+	#define LUHAME_API 
+#endif
 #else
-	#error Luhame only support windows
+	#error Luhame only supports Windows!
 #endif
 
 #ifdef LH_ENABLE_ASSERTS
@@ -41,4 +44,6 @@ namespace Luhame {
 
 
 #define LH_BIND_EVENT_FN(fn) std::bind(&##fn, this, std::placeholders::_1)
+
+constexpr bool LH_RENDERER_DEBUG = true;
 

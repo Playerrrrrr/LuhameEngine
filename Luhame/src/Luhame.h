@@ -5,7 +5,6 @@
 #pragma once
 
 #include "Luhame/Core/Application.h"
-
 #include "Luhame/Core/Log.h"
 
 #include"imgui/imgui.h"
@@ -17,10 +16,13 @@
 
 #include "Luhame/Renderer/Renderer.h"
 #include "Luhame/Renderer/FrameBuffer.h"
-#include "Luhame/Renderer/VertexBuffer.h"
-#include "Luhame/Renderer/IndexBuffer.h"
+#include "Luhame/Renderer/Buffer.h"
 #include "Luhame/Renderer/Texture.h"
 #include "Luhame/Renderer/Shader.h"
+
+#include"Luhame/Renderer/Mesh.h"
+#include"Luhame/Renderer/Camera.h"
+
 
 
 

@@ -7,6 +7,7 @@
 #include <GLFW/glfw3.h>
 
 namespace Luhame {
+	input* input::s_instance = new windows_input;
 
 	bool windows_input::is_key_pressed_impl(int keycode)
 	{

@@ -37,7 +37,7 @@ namespace Luhame {
     {
     }
 
-    void imgui_layer::on_update()
+    void imgui_layer::on_update(const time_step&)
     {
 
 
@@ -58,45 +58,37 @@ namespace Luhame {
     }
     bool imgui_layer::on_mouse_button_pressed_event(mouse_button_pressed_event& e)
     {
-        LH_CORE_INFO("{}", e);
-
         return false;
     }
 
     bool imgui_layer::on_mouse_button_released_event(mouse_button_released_event& e)
     {
-        LH_CORE_INFO("{}", e);
 
         return false;
     }
 
     bool imgui_layer::on_mouse_moved_event(mouse_moved_event& e)
     {
-        LH_CORE_INFO("{}", e);
 
         return false;
     }
 
     bool imgui_layer::on_mouse_scrolled_event(mouse_scrolled_event& e)
     {
-        LH_CORE_INFO("{}", e);
 
         return false;
     }
 
     bool imgui_layer::on_key_pressed_event(key_pressed_event& e)
     {
-        LH_CORE_INFO("{}", e);
         return false;
     }
     bool imgui_layer::on_key_typed_event(key_typed_event& e)
     {
-        LH_CORE_INFO("{}", e);
         return false;
     }
     bool imgui_layer::on_key_released_event(key_released_event& e)
     {
-        LH_CORE_INFO("{}", e);
 
         return false;
     }

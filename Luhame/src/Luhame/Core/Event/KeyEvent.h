@@ -1,5 +1,6 @@
 #pragma once
 #include"Event.h"
+#include"Luhame/Core/KeyKode.h"
 namespace Luhame {
 
 	class LUHAME_API key_event :public event {

@@ -3,8 +3,7 @@
 #include"RenderCommand.h"
 #include<tuple>
 #include<glad/glad.h>
-#include"Luhame/Renderer/VertexBuffer.h"
-#include"Luhame/Renderer/IndexBuffer.h"
+#include"Luhame/Renderer/Buffer.h"
 namespace Luhame {
 
 	renderer* renderer::s_instance = new renderer();
@@ -36,22 +35,22 @@ namespace Luhame {
 			LH_RENDER_COMMAND_ARGS(r, g, b, a),
 			(
 			[](float r, float g, float b, float a) -> void {
+			LH_CORE_INFO("CLEAN");
 				renderer_api::clear(r, g, b, a);
-				a, b, b;
 			}
 			)
 		)
 	}
 
-	void renderer::draw_indexed(unsigned int count)
+	void renderer::draw_indexed(unsigned int count,draw_config config)
 	{
 
 		LH_RENDER_COMMAND_SUBMIT(
-			LH_RENDER_COMMAND_TYPES(unsigned int),
-			LH_RENDER_COMMAND_ARGS(count),
+			LH_RENDER_COMMAND_TYPES(unsigned int, draw_config),
+			LH_RENDER_COMMAND_ARGS(count, config),
 			(
-				[](unsigned int count) -> void {
-				renderer_api::draw_indexed(count);
+				[](unsigned int count, draw_config config) -> void {
+				renderer_api::draw_indexed(count, config);
 			}
 			)
 		)

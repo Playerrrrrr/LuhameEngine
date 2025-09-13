@@ -14,17 +14,23 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 -- Include directories relative to root folder (solution directory)
 IncludeDir = {}
 IncludeDir["GLFW"] = "Luhame/vendor/GLFW/include"
-IncludeDir["Glad"] = "luhame/vendor/glad/include"
-IncludeDir["ImGui"] = "luhame/vendor/imgui"
+IncludeDir["Glad"] = "Luhame/vendor/glad/include"
+IncludeDir["ImGui"] = "Luhame/vendor/imgui"
+IncludeDir["glm"] = "Luhame/vendor/glm"
+IncludeDir["stb"] = "Luhame/vendor/stb"
+IncludeDir["spdlog"] = "Luhame/vendor/spdlog/include"
+IncludeDir["assimp"] = "Luhame/vendor/assimp/include"
 
 include "Luhame/vendor/GLFW"--把该目录下的premake5.lua加载过来
 include "Luhame/vendor/imgui"
 include "Luhame/vendor/glad"
+include "Luhame/vendor/stb"
 
 project "Luhame"
     location "Luhame"
     kind "StaticLib"
     language "C++"
+    staticruntime "on"
     
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -46,7 +52,11 @@ project "Luhame"
         "%{prj.name}/vendor",
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.ImGui}",
-        "%{IncludeDir.Glad}"
+        "%{IncludeDir.Glad}",
+        "%{IncludeDir.glm}",
+        "%{IncludeDir.stb}",
+        "%{IncludeDir.spdlog}",
+        "%{IncludeDir.assimp}"
     }
 
     links 
@@ -54,13 +64,14 @@ project "Luhame"
 		"GLFW",
         "Glad",
         "ImGui",
-        "opengl32.lib"
+        "opengl32.lib",
+        "StbImage"
     }
-    
+
+    defines { "SPDLOG_ACTIVE_LEVEL=SPDLOG_LEVEL_TRACE" }
+
 	filter "system:windows"
 		cppdialect "C++17"
-        staticruntime "On"
-        systemversion "latest"
         
 		defines 
 		{ 
@@ -68,10 +79,11 @@ project "Luhame"
             "LH_BUILD_LIB",
 		}
 			
-        postbuildcommands
-        {
-            ("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
-        }		
+        -- dll do
+       -- postbuildcommands
+       -- {
+       --     ("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
+       -- }		
 
     filter "configurations:Debug"
         defines "LH_DEBUG"
@@ -86,30 +98,34 @@ project "Luhame"
         optimize "On"
 
     filter { "system:windows", "configurations:Release" }
-        buildoptions "/MT"
-
+        buildoptions "/MT /execution-charset:utf-8" --for spdlog
+    filter { "system:windows", "configurations:Debug" }
+        buildoptions "/execution-charset:utf-8" --for spdlog
 project "Sandbox"
     location "Sandbox"
     kind "ConsoleApp"
     language "C++"
-    systemversion "latest"
-    
-	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+    staticruntime "on"
+    cppdialect "C++17"
+	
+    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
 	links 
 	{ 
 		"Luhame",
-        "ImGui"
+        "Luhame/vendor/assimp/win64/assimp.lib"
     }
     
+   defines { "SPDLOG_ACTIVE_LEVEL=SPDLOG_LEVEL_TRACE" }
 
 	files 
 	{ 
 		"%{prj.name}/src/**.h", 
 		"%{prj.name}/src/**.c", 
 		"%{prj.name}/src/**.hpp", 
-		"%{prj.name}/src/**.cpp" 
+		"%{prj.name}/src/**.cpp" ,
+
 	}
     
 	includedirs 
@@ -117,11 +133,13 @@ project "Sandbox"
         "%{prj.name}/src",
         "Luhame/src",
         "Luhame/vendor",
+        "%{IncludeDir.glm}",
     }
 	
 	filter "system:windows"
         cppdialect "C++17"
         staticruntime "On"
+        systemversion "latest"
         
 		defines 
 		{ 
@@ -130,15 +148,17 @@ project "Sandbox"
     
     filter "configurations:Debug"
         defines "LH_DEBUG"
-        symbols "On"
+        symbols "on"
                 
     filter "configurations:Release"
         defines "LH_RELEASE"
-        optimize "On"
+        optimize "on"
 
     filter "configurations:Dist"
         defines "LH_DIST"
-        optimize "On"
+        optimize "on"
 
     filter { "system:windows", "configurations:Release" }
-        buildoptions "/MT"     
+        buildoptions "/MT /execution-charset:utf-8" --for spdlog
+    filter { "system:windows", "configurations:Debug" }
+        buildoptions "/execution-charset:utf-8" --for spdlog

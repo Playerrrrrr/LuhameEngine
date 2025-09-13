@@ -1,6 +1,7 @@
 #pragma once
-#include"pch.h"
+#include"Luhame/Core/KeyKode.h"
 namespace Luhame {
+
 
 	class input
 	{

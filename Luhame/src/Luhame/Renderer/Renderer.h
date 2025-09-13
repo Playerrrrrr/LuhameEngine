@@ -46,8 +46,7 @@ struct LH_RENDERER_COMMAND<> {
 	LH_RENDERER_COMMAND<__VA_ARGS__>
 #define LH_RENDER_COMMAND_ARGS(...)\
 	__VA_ARGS__
-#define LH_RENDER_COMMAND_FUNCTION_BEGIN (
-#define LH_RENDER_COMMAND_FUNCTION_END )
+
 
 #define LH_RENDER_COMMAND_SUBMIT(CommandType,CommandArgs, LambdaBody) \
     { \
@@ -57,6 +56,22 @@ struct LH_RENDERER_COMMAND<> {
         ); \
         new(mem) CommandType{ LambdaBody, CommandArgs }; \
     }
+
+#define LH_RENDER_COMMAND_SUBMIT_SELF(...)\
+		LH_RENDER_COMMAND_SUBMIT(\
+			LH_RENDER_COMMAND_TYPES(decltype(this)),\
+			LH_RENDER_COMMAND_ARGS(this),\
+			__VA_ARGS__\
+		)
+
+#define LH_RENDER_COMMAND_SUBMIT_VOID(...)\
+		LH_RENDER_COMMAND_SUBMIT(\
+			LH_RENDER_COMMAND_TYPES(),\
+			LH_RENDER_COMMAND_ARGS(),\
+			__VA_ARGS__\
+		)
+
+
 //内存过期用place new
 
 namespace Luhame {
@@ -74,7 +89,7 @@ namespace Luhame {
 
 		static void init();
 
-		static void draw_indexed(unsigned int count);
+		static void draw_indexed(unsigned int count,draw_config config);
 
 
 		static void* submit(render_command_queue::render_command_fn command,unsigned int size)

@@ -8,6 +8,14 @@
 
 #include"GLFW/glfw3.h"
 #include"imgui/backends/imgui_impl_glfw.h"
+
+#include"Luhame/Renderer/Framebuffer.h"
+#include"imgui/imgui.h"
+
+#define GLFW_EXPOSE_NATIVE_WIN32
+#include <GLFW/glfw3native.h>
+#include <Windows.h>
+
 namespace Luhame {
 
 
@@ -40,13 +48,16 @@ namespace Luhame {
 		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
 		//io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoTaskBarIcons;
 		//io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoMerge;
-
+		ImFont* pfont = io.Fonts->AddFontFromFileTTF("../Luhame/assets/fonts/Segoe UI.ttf");
+		//io.FontDefault = pfont;
+		// io.Fonts->Fonts.back()
 		// Setup Dear ImGui style
 		ImGui::StyleColorsDark();
 		//ImGui::StyleColorsClassic();
 
 		// When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
 		ImGuiStyle& style = ImGui::GetStyle();
+		style.Colors[ImGuiCol_WindowBg] = ImVec4(0.15f, 0.15f, 0.15f, style.Colors[ImGuiCol_WindowBg].w);
 		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
 		{
 			style.WindowRounding = 0.0f;
@@ -71,14 +82,13 @@ namespace Luhame {
 
 		on_init();
 
-
-
+		time_step m_time;
 		while (m_runing) {
 			on_begin_frame();
-
+			
 
 			for (layer* t_layer : m_layer_stack) {
-				t_layer->on_update();//提交渲染数据
+				t_layer->on_update(m_time);//提交渲染数据
 			}
 
 			for (auto& t : m_layer_stack) {
@@ -91,7 +101,7 @@ namespace Luhame {
 			on_end_frame();
 
 			m_window->on_update();
-
+			m_time.update();
 		}
 		on_shut_down();
 	}
@@ -134,34 +144,34 @@ namespace Luhame {
 		ImGui::NewFrame();
 
 
-		//{//将主窗口作为docking space
-		//	ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
-		//	window_flags |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse;
-		//	window_flags |= ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
-		//	window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
+		{//将主窗口作为docking space
+			ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
+			window_flags |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse;
+			window_flags |= ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
+			window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
 
-		//	// 获取视口并设置窗口位置和大小
-		//	ImGuiViewport* viewport = ImGui::GetMainViewport();
-		//	ImGui::SetNextWindowPos(viewport->Pos);
-		//	ImGui::SetNextWindowSize(viewport->Size);
-		//	ImGui::SetNextWindowViewport(viewport->ID);
+			// 获取视口并设置窗口位置和大小
+			ImGuiViewport* viewport = ImGui::GetMainViewport();
+			ImGui::SetNextWindowPos(viewport->Pos);
+			ImGui::SetNextWindowSize(viewport->Size);
+			ImGui::SetNextWindowViewport(viewport->ID);
 
-		//	// 推送样式变量
-		//	ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
-		//	ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
-		//	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+			// 推送样式变量
+			ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
+			ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
+			ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
 
-		//	// 创建主docking窗口
-		//	bool open = true;
-		//	ImGui::Begin("DockingSpace", &open, window_flags);
-		//	ImGui::PopStyleVar(3);
+			// 创建主docking窗口
+			bool open = true;
+			ImGui::Begin("DockingSpace", &open, window_flags);
+			ImGui::PopStyleVar(3);
 
-		//	// 创建docking空间
-		//	ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
-		//	ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), ImGuiDockNodeFlags_None);
+			// 创建docking空间
+			ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
+			ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), ImGuiDockNodeFlags_None);
 
-		//	ImGui::End();
-		//}
+			ImGui::End();
+		}
 	}
 
 	void Application::on_end_frame()
@@ -180,6 +190,31 @@ namespace Luhame {
 			ImGui::RenderPlatformWindowsDefault();
 			glfwMakeContextCurrent(backup_current_context);
 		}
+	}
+
+	std::string Application::open_file(const std::string& filter) const
+	{
+		OPENFILENAMEA ofn;       // common dialog box structure
+		CHAR szFile[260] = { 0 };       // if using TCHAR macros
+
+		// Initialize OPENFILENAME
+		ZeroMemory(&ofn, sizeof(OPENFILENAME));
+		ofn.lStructSize = sizeof(OPENFILENAME);
+		ofn.hwndOwner = glfwGetWin32Window((GLFWwindow*)m_window->get_native_window());
+		ofn.lpstrFile = szFile;
+		ofn.nMaxFile = sizeof(szFile);
+		ofn.lpstrFilter = "All\0*.*\0";
+		ofn.nFilterIndex = 1;
+		ofn.lpstrFileTitle = NULL;
+		ofn.nMaxFileTitle = 0;
+		ofn.lpstrInitialDir = NULL;
+		ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
+
+		if (GetOpenFileNameA(&ofn) == TRUE)
+		{
+			return ofn.lpstrFile;
+		}
+		return std::string();
 	}
 
 	bool Application::on_window_resize(window_resize_event& event)
